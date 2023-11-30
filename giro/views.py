@@ -4,4 +4,11 @@ from .models import Cliente,Transaccion
 # Create your views here.
 
 def index(request):
-    return render(request,"index.html")
+    Transacciones = Transaccion.objects.all()
+    context = {
+        'Transacciones':Transacciones,
+    }
+    print(Transacciones)
+    print(Transacciones[0].transaccion_img.url)
+    print(context)
+    return render(request,"index.html",context)

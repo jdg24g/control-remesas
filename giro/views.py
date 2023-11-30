@@ -8,7 +8,4 @@ def index(request):
     context = {
         'Transacciones':Transacciones,
     }
-    print(Transacciones)
-    print(Transacciones[0].transaccion_img.url)
-    print(context)
     return render(request,"index.html",context)

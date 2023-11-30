@@ -5,6 +5,7 @@ from django.db import models
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
+    codigo_pais = models.CharField(max_length=50,blank=True)
     celular = models.CharField(max_length=50)
     cedula = models.CharField(max_length=50)
     ruc = models.CharField(max_length=50, blank=True)
@@ -32,7 +33,7 @@ class Transaccion(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, blank=True)
     metodo_DePago = models.CharField(max_length=50, choices=opciones_DePago)
     monto = models.IntegerField()
-    ref = models.CharField(max_length=50, unique=True, blank=True)
+    ref = models.CharField(max_length=50, blank=True)
     transaccion_img = models.ImageField("Foto", upload_to="transacciones", blank=True)
     fecha = models.DateTimeField(auto_now_add=True, blank=True)
     editado = models.DateTimeField(auto_now=True, blank=True)

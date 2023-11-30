@@ -1,9 +1,4 @@
-import os
-import shutil
-
-from django.conf import settings
 from django.db import models
-from PIL import Image
 
 
 # Crear una tabla que tenga número de referencia, tipo de transacción y compañía
@@ -38,10 +33,10 @@ class Transaccion(models.Model):
     metodo_DePago = models.CharField(max_length=50, choices=opciones_DePago)
     monto = models.IntegerField()
     ref = models.CharField(max_length=50, unique=True, blank=True)
-    transaccion_img = models.ImageField('Foto',upload_to="transacciones", blank=True)
-    fecha = models.DateTimeField(auto_now_add=True,blank=True)
-    editado = models.DateTimeField(auto_now=True,blank=True)
-    estado = models.BooleanField('Cobrado',default=False,blank=True)
-        
+    transaccion_img = models.ImageField("Foto", upload_to="transacciones", blank=True)
+    fecha = models.DateTimeField(auto_now_add=True, blank=True)
+    editado = models.DateTimeField(auto_now=True, blank=True)
+    estado = models.BooleanField("Cobrado", default=False, blank=True)
+
     def __str__(self) -> str:
         return f"{self.cliente}-{self.metodo_DePago}-{self.monto}"

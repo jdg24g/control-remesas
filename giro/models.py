@@ -1,3 +1,7 @@
+import os
+import shutil
+
+from django.conf import settings
 from django.db import models
 from PIL import Image
 
@@ -8,7 +12,11 @@ class Cliente(models.Model):
     apellido = models.CharField(max_length=50)
     celular = models.CharField(max_length=50)
     cedula = models.CharField(max_length=50)
-    ruc = models.CharField(max_length=50)
+    ruc = models.CharField(max_length=50, blank=True)
+
+    # __str__ nombre apellido
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
 
 
 opciones_DePago = [
@@ -30,18 +38,7 @@ class Transaccion(models.Model):
     metodo_DePago = models.CharField(max_length=50, choices=opciones_DePago)
     monto = models.IntegerField()
     ref = models.CharField(max_length=50, unique=True, blank=True)
-    transaccion_img = models.ImageField(upload_to="transacciones", blank=True)
-
-    def save(self, *args, **kwargs):
-        if self.transaccion_img:
-            # Obtener la extensión original del archivo
-            ext = self.transaccion_img.name.split(".")[-1]
-
-            # Cambiar el nombre del archivo al ID de la transacción con la extensión original
-            self.transaccion_img.name = f"transacciones/{self.id}.{ext}"
-
-            # Abrir la imagen y guardarla en formato JPG
-            img = Image.open(self.transaccion_img.path)
-            img.convert("RGB").save(self.transaccion_img.path, "JPEG")
-
-        super().save(*args, **kwargs)
+    transaccion_img = models.ImageField('Foto',upload_to="transacciones", blank=True)
+        
+    def __str__(self) -> str:
+        return f"{self.cliente}-{self.metodo_DePago}-{self.monto}"

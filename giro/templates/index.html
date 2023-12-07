@@ -4,7 +4,7 @@
 {% block header %} {% include "includes/header.html" %} {% endblock header %}
 {% block content %}
     {% if Transacciones %}
-        <div class="table-responsive mt-3" style="overflow: hidden;">
+        <div class="table-responsive mt-3" >
             <table class="table" id="example">
                 <thead>
                     <tr>
@@ -13,6 +13,9 @@
                         <th scope="col">Metodo</th>
                         <th scope="col">Monto</th>
                         <th scope="col">Comprobante</th>
+                        
+                        <th scope="col">Ref</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +29,24 @@
                             <td>{{ transaccion.cliente }}</td>
                             <td>{{ transaccion.metodo_DePago }}</td>
                             <td>{{ transaccion.monto }}</td>
-                            <td><a href="{{ transaccion.transaccion_img.url }}" target="_blank">Comprobante</a></td>
+                            <td>
+                                {% if transaccion.transaccion_img and transaccion.transaccion_img.url %}
+                                    <a href="{{ transaccion.transaccion_img.url }}" target="_blank">
+                                        <img src="{{ transaccion.transaccion_img.url }}" alt="{{ transaccion.transaccion_img.url }}" style="max-width: auto;height: 50px;">
+                                    </a>
+                                {% else %}
+                                    No hay imagen
+                                {% endif %}
+                            </td>
+                            
+                                <td>
+                                    {% if transaccion.ref %}
+                                    {{ transaccion.ref }}
+                                    {% else %}
+                                    Sin Ref.
+                                    {% endif %}
+
+                                </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -37,7 +57,7 @@
         No Transacciones found.
     {% endif %}
 
+    {% include "includes/data_table.html" %}
 
-{% include "includes/data_table.html" %}
 
 {% endblock content %}

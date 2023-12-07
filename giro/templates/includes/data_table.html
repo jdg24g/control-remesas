@@ -7,6 +7,9 @@
 <script>
   $(document).ready(function () {
     $("#example").DataTable({
+        paging: false,
+        scrollCollapse: true,
+        scrollY: '80vh',
       language: {
         processing: "Procesando...",
         lengthMenu: "Mostrar _MENU_ registros",

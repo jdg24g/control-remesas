@@ -14,7 +14,6 @@ class Cliente(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
-
 opciones_DePago = [
     ("interfisa", "interfisa"),
     ("tigo-349", "tigo-349"),

@@ -3,11 +3,23 @@
 {% block title %} Test {% endblock title %}
 {% block header %} {% include "includes/header.html" %} {% endblock header %}
 {% block content %}
+    {% include "includes/banco.html" %}
+    {% include "includes/349.html" %}
+    {% include "includes/722.html" %}
+    {% include "includes/757.html" %}
+    {% include "includes/total.html" %}
+
+
+    
+    
+
+
     {% if Transacciones %}
         <div class="table-responsive mt-3" >
             <table class="table" id="example">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Cobrado</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Metodo</th>
@@ -21,6 +33,7 @@
                 <tbody>
                     {% for transaccion in Transacciones %}
                         <tr>
+                            <td>{{ transaccion.id }}</td>
                             <td>{% if transaccion.estado  %}
                                 Si
                                 {% else %}

@@ -1,0 +1,29 @@
+<div class="table-responsive-lg">
+  <table class="table table-info">
+    <thead>
+      <tr>
+        <th scope="col">TIGO-722</th>
+        <th scope="col">ZIMPLE-722</th>
+        <th scope="col">WALLY-722</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% if tigo_722 %}
+        <td>{{ tigo_722 }}Gs.</td>
+        {% else %}
+        <td>Sin contenido</td>
+        {% endif %} {% if zimple_722 %}
+        <td>{{ zimple_722 }}Gs.</td>
+        {% else %}
+        <td>Sin contenido</td>
+        {% endif %} {% if wally_722 %}
+        <td>{{ wally_722 }}Gs.</td>
+        {% else %}
+        <td>Sin contenido</td>
+        {% endif %}
+      </tr>
+    </tbody>
+  </table>
+  
+</div>

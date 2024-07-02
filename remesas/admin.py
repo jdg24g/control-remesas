@@ -57,6 +57,23 @@ class MultiSelectEntityFilter(admin.SimpleListFilter):
         return value.split(",") if value else []
 
 
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = "__all__"
+
+    def clean_cedula(self):
+        cedula = self.cleaned_data.get("cedula")
+        if (
+            cedula
+            and Cliente.objects.filter(cedula=cedula)
+            .exclude(pk=self.instance.pk)
+            .exists()
+        ):
+            raise ValidationError("La cédula ya existe.")
+        return cedula
+
+
 class TransaccionForm(forms.ModelForm):
     class Meta:
         model = Transaccion

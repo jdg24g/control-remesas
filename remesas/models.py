@@ -8,6 +8,10 @@ class Cliente(models.Model):
     cedula = models.CharField(max_length=20)
     whatsapp = models.CharField(max_length=20, blank=True, null=True)
 
+    def clean(self):
+        if Cliente.objects.filter(cedula=self.cedula).exists():
+            raise ValidationError("Cedula ya existe")
+
     def __str__(self):
         return f"{self.cedula} {self.nombre.upper()} {self.apellido.upper()}"
 

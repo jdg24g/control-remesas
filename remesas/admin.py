@@ -100,14 +100,13 @@ class TransaccionAdmin(admin.ModelAdmin):
     form = TransaccionForm
     list_display = [
         "cliente",
-        "entidad",
         "monto",
         "estado",
         "caja",
         "imagen_comprobante_preview",
         "cliente_whatsapp",
     ]
-    list_filter = ["estado", MultiSelectEntityFilter, YearListFilter, MonthListFilter]
+    list_filter = ["caja","estado", MultiSelectEntityFilter, YearListFilter, MonthListFilter]
     search_fields = [
         "cliente__cedula",
         "cliente__nombre",

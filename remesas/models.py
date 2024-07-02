@@ -79,7 +79,10 @@ class Transaccion(models.Model):
         ("ZIMPLE-722", "ZIMPLE-722"),
         ("ZIMPLE-757", "ZIMPLE-757"),
     ]
-
+    cajas = [
+        ("G", "Giro"),
+        ("I","Interfisa")
+    ]
     estado = [
         ("P", "Pendiente"),
         ("A", "Aprobado"),
@@ -87,6 +90,7 @@ class Transaccion(models.Model):
         ("R", "Rechazado"),
     ]
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    caja = models.CharField(choices=cajas, max_length=50,blank=True, null=True)
     entidad = models.CharField(choices=entidades,max_length=100)
     remitente = models.CharField(
         max_length=50, default="El cliente es el remitente", blank=True, null=True

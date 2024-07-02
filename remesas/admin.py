@@ -103,7 +103,7 @@ class TransaccionAdmin(admin.ModelAdmin):
         "entidad",
         "monto",
         "estado",
-        "agregado",
+        "caja",
         "imagen_comprobante_preview",
         "cliente_whatsapp",
     ]
@@ -132,7 +132,7 @@ class TransaccionAdmin(admin.ModelAdmin):
             obj.cliente.whatsapp,
         )
 
-    actions = ["marcar_aprobadas", "marcar_rechazadas", "marcar_pendientes","marcar_enviados"]
+    actions = ["marcar_aprobadas", "marcar_rechazadas", "marcar_pendientes","marcar_enviados","marcarComoGiro", "marcarComoInterfisa"]
 
     def marcar_aprobadas(self, request, queryset):
         updated = queryset.update(estado="A")
@@ -164,6 +164,20 @@ class TransaccionAdmin(admin.ModelAdmin):
             request, f"Se marcaron como Enviados {updated} transacciones."
         )
     marcar_enviados.short_description = _("Marcar como Enviados")
+
+    def marcarComoGiro(self,request, queryset):
+        updated = queryset.update(caja="G")
+        self.message_user(
+            request, f"Se marcaron como Giro {updated} transacciones."
+        )
+    marcarComoGiro.short_description = _("Marcar como Giro")
+
+    def marcarComoInterfisa(self, request, queryset):
+        updated = queryset.update(caja="I")
+        self.message_user(
+            request, f"Se marcaron como Interfisa {updated} transacciones."
+        )
+    marcarComoInterfisa.short_description = _("Marcar como Interfisa")
 
 admin.site.site_header = "PLAYNET"
 admin.site.site_title = "PLAYNET"

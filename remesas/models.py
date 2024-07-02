@@ -1,23 +1,18 @@
+# models.py
 from django.db import models
 from django.core.exceptions import ValidationError
-
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50, blank=True, null=True)
-    cedula = models.CharField(max_length=20)
+    cedula = models.CharField(max_length=20, unique=True)
     whatsapp = models.CharField(max_length=20, blank=True, null=True)
-
-    def clean(self):
-        if Cliente.objects.filter(cedula=self.cedula).exists():
-            raise ValidationError("Cedula ya existe")
 
     def __str__(self):
         return f"{self.cedula} {self.nombre.upper()} {self.apellido.upper()}"
 
-
 class Transaccion(models.Model):
-    entidades = [
+    ENTIDADES = [
         ("BANCOP S.A.", "BANCOP S.A."),
         ("Banco Atlas S.A.", "Banco Atlas S.A."),
         ("Banco BASA", "Banco BASA"),
@@ -35,19 +30,13 @@ class Transaccion(models.Model):
         ("Cooperativa Coodeñe Ltda.", "Cooperativa Coodeñe Ltda."),
         ("Cooperativa Colonias Unidas Ltda.", "Cooperativa Colonias Unidas Ltda."),
         ("Cooperativa Coomecipar Ltda.", "Cooperativa Coomecipar Ltda."),
-        (
-            "Cooperativa de las Fuerzas Armadas de la Nación Ltda.",
-            "Cooperativa de las Fuerzas Armadas de la Nación Ltda.",
-        ),
+        ("Cooperativa de las Fuerzas Armadas de la Nación Ltda.", "Cooperativa de las Fuerzas Armadas de la Nación Ltda."),
         ("Cooperativa Fernheim Ltda.", "Cooperativa Fernheim Ltda."),
         ("Cooperativa Mborayhu Ltda.", "Cooperativa Mborayhu Ltda."),
         ("Cooperativa Mburicao Ltda.", "Cooperativa Mburicao Ltda."),
         ("Cooperativa Medalla Milagrosa Ltda.", "Cooperativa Medalla Milagrosa Ltda."),
         ("Cooperativa Mercado 4 Ltda.", "Cooperativa Mercado 4 Ltda."),
-        (
-            "Cooperativa Multiactiva 8 de Marzo Ltda.",
-            "Cooperativa Multiactiva 8 de Marzo Ltda.",
-        ),
+        ("Cooperativa Multiactiva 8 de Marzo Ltda.", "Cooperativa Multiactiva 8 de Marzo Ltda."),
         ("Cooperativa Naranjal Ltda.", "Cooperativa Naranjal Ltda."),
         ("Cooperativa Nazareth Ltda.", "Cooperativa Nazareth Ltda."),
         ("Cooperativa Neuland Ltda.", "Cooperativa Neuland Ltda."),
@@ -57,10 +46,7 @@ class Transaccion(models.Model):
         ("Cooperativa San Juan Bautista Ltda.", "Cooperativa San Juan Bautista Ltda."),
         ("Cooperativa Universitaria Ltda.", "Cooperativa Universitaria Ltda."),
         ("Cooperativa Ypacarai Ltda.", "Cooperativa Ypacarai Ltda."),
-        (
-            "Financiera Paraguayo Japonesa S.A.E.C.A",
-            "Financiera Paraguayo Japonesa S.A.E.C.A",
-        ),
+        ("Financiera Paraguayo Japonesa S.A.E.C.A", "Financiera Paraguayo Japonesa S.A.E.C.A"),
         ("FINANCIERA FIC S.A.E.C.A.", "FINANCIERA FIC S.A.E.C.A."),
         ("Interfisa Banco", "Interfisa Banco"),
         ("Solar Banco S.A.E.", "Solar Banco S.A.E."),
@@ -79,39 +65,36 @@ class Transaccion(models.Model):
         ("ZIMPLE-722", "ZIMPLE-722"),
         ("ZIMPLE-757", "ZIMPLE-757"),
     ]
-    cajas = [
+    CAJAS = [
         ("G", "Giro"),
         ("I","Interfisa")
     ]
-    estado = [
+    ESTADOS = [
         ("P", "Pendiente"),
         ("A", "Aprobado"),
         ("E", "Enviado"),
         ("R", "Rechazado"),
     ]
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    caja = models.CharField(choices=cajas, max_length=50,blank=True, null=True)
-    entidad = models.CharField(choices=entidades,max_length=100)
-    remitente = models.CharField(
-        max_length=50, default="El cliente es el remitente", blank=True, null=True
-    )
+    caja = models.CharField(choices=CAJAS, max_length=50, blank=True, null=True)
+    entidad = models.CharField(choices=ENTIDADES, max_length=100)
+    remitente = models.CharField(max_length=50, default="El cliente es el remitente", blank=True, null=True)
     num_comprobante = models.CharField(max_length=50, blank=True, null=True)
     agregado = models.DateTimeField(auto_now_add=True)
     monto = models.PositiveIntegerField(default=0)
-    imagen_comprobante = models.ImageField(
-        upload_to="comprobantes", blank=True, null=True
-    )
-    estado = models.CharField(max_length=1, choices=estado, default="P")
+    imagen_comprobante = models.ImageField(upload_to="comprobantes", blank=True, null=True)
+    estado = models.CharField(max_length=1, choices=ESTADOS, default="P")
     observacion = models.TextField(blank=True, null=True)
 
     def clean(self):
         if self.num_comprobante:
-            if Transaccion.objects.filter(
-                num_comprobante=self.num_comprobante
-            ).exists():
-                raise ValidationError(
-                    {"num_comprobante": "El número de comprobante ya existe."}
-                )
+            transaccion_qs = Transaccion.objects.filter(num_comprobante=self.num_comprobante)
+            if self.pk:
+                transaccion_qs = transaccion_qs.exclude(pk=self.pk)
+                print(transaccion_qs)
+            if transaccion_qs.exists():
+                print(transaccion_qs)
+                raise ValidationError({"num_comprobante": "El número de comprobante ya existe."})
 
     def __str__(self):
         return f"{self.cliente}"

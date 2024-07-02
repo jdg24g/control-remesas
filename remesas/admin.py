@@ -101,6 +101,7 @@ class TransaccionAdmin(admin.ModelAdmin):
     list_display = [
         "cliente",
         "observacion",
+        "entidad",
         "monto",
         "estado",
         "caja",

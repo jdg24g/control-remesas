@@ -132,7 +132,7 @@ class TransaccionAdmin(admin.ModelAdmin):
             obj.cliente.whatsapp,
         )
 
-    actions = ["marcar_aprobadas", "marcar_rechazadas", "marcar_pendientes"]
+    actions = ["marcar_aprobadas", "marcar_rechazadas", "marcar_pendientes","marcar_enviados"]
 
     def marcar_aprobadas(self, request, queryset):
         updated = queryset.update(estado="A")
@@ -158,6 +158,12 @@ class TransaccionAdmin(admin.ModelAdmin):
 
     marcar_pendientes.short_description = _("Marcar como Pendientes")
 
+    def marcar_enviados(self, request,queryset):
+        updated = queryset.update(estado="E")
+        self.message_user(
+            request, f"Se marcaron como Enviados {updated} transacciones."
+        )
+    marcar_enviados.short_description = _("Marcar como Enviados")
 
 admin.site.site_header = "PLAYNET"
 admin.site.site_title = "PLAYNET"

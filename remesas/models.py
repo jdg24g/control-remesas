@@ -83,6 +83,7 @@ class Transaccion(models.Model):
     estado = [
         ("P", "Pendiente"),
         ("A", "Aprobado"),
+        ("E", "Enviado"),
         ("R", "Rechazado"),
     ]
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

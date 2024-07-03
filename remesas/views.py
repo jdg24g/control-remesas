@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def index(request):
     return redirect('/admin')
+
+def handler404(request, exception):
+    return render(request, '404.html', status=404)

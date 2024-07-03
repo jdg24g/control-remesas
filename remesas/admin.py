@@ -83,11 +83,25 @@ class ClienteAdmin(admin.ModelAdmin):
 class TransaccionAdmin(admin.ModelAdmin):
     form = TransaccionForm
     list_display = [
-        "cliente", "observacion", "entidad", "monto", "estado", "caja", "imagen_comprobante_preview", "cliente_whatsapp"
+        "nombre_completo","cliente_ci", "observacion_test", "entidad", "monto", "estado", "caja", "imagen_comprobante_preview", "cliente_whatsapp"
     ]
     list_filter = ["caja", "estado", MultiSelectEntityFilter, YearListFilter, MonthListFilter]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]
     autocomplete_fields = ["cliente"]
+    
+    def observacion_test(self, obj):
+        if obj.observacion:
+            return obj.observacion
+        else:
+            return "Sin Observación"
+    observacion_test.short_description = "Observación"
+
+    def nombre_completo(self, obj):
+        nombre = obj.cliente.nombre
+        apellido = obj.cliente.apellido
+        completo = nombre.upper() + " " + apellido.upper()
+        return completo
+    nombre_completo.short_description = "Nombre Completo"
 
     def imagen_comprobante_preview(self, obj):
         if obj.imagen_comprobante:
@@ -99,10 +113,13 @@ class TransaccionAdmin(admin.ModelAdmin):
     imagen_comprobante_preview.short_description = "Comprobante"
 
     def cliente_whatsapp(self, obj):
-        return format_html(
-            '<a href="https://wa.me/{0}" target="_blank">Enviar Whatsapp</a>',
-            obj.cliente.whatsapp,
-        )
+        whatsapp = obj.cliente.whatsapp
+        return "+"+whatsapp
+    cliente_whatsapp.short_description = "Whatsapp"
+    
+    def cliente_ci(self, obj):
+        return f"{obj.cliente.cedula}"
+    cliente_ci.short_description = "Cédula"
 
     actions = ["marcar_aprobadas", "marcar_rechazadas", "marcar_pendientes", "marcar_enviados", "marcar_como_giro", "marcar_como_interfisa"]
 

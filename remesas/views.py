@@ -10,4 +10,4 @@ def handler404(request, exception):
     return render(request, '404.html', status=404)
 
 def home(request):
-    return render(request,'cover/index.html')
+    return render(request,'home/index.html')

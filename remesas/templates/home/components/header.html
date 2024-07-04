@@ -1,0 +1,24 @@
+{% load static %}
+<style>
+    @media (max-width: 440px) {
+      .d-flex {
+        flex-direction: column;
+      }
+    }
+</style>
+<header class="mb-auto container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap cambiar">
+      <h3 class="float-md-start mb-0"><a href="home"><img src="{% static "assets/img/logo-white.webp" %}" alt="logo" height="65"></a></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a
+          class="nav-link fw-bold py-1 px-0 active"
+          aria-current="page"
+          href="home"
+          >Inicio</a
+        >
+        <a class="nav-link fw-bold py-1 px-0" href="https://playnet.com.py/#miPlan" target="_blank">Mi Plan</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Contacto</a>
+        <a class="nav-link fw-bold py-1 px-0" href="admin" target="_blank">Admin</a>
+      </nav>
+    </div>
+  </header>

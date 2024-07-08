@@ -58,7 +58,23 @@ def login(request):
                 )
                 response.raise_for_status()  # Lanza una excepción si la solicitud no es exitosa
 
-                datos = response.json()  # Parsea la respuesta JSON
+                # Procesar la respuesta según el formato recibido
+                datos = response.json()
+
+                if "datos" in datos and isinstance(datos["datos"], list):
+                    # Formato 1: Lista de listas
+                    for item in datos["datos"]:
+                        nombre = item[0]
+                        estado = item[1]
+                        # Procesar cada elemento de la lista de listas
+                        # Aquí puedes realizar las operaciones necesarias con los datos
+
+                elif "datos" in datos and isinstance(datos["datos"], dict):
+                    # Formato 2: Diccionario
+                    id_usuario = datos["datos"]["id"]
+                    nombre = datos["datos"]["nombre"]
+                    # Procesar el diccionario según tus necesidades
+                    # Aquí puedes realizar las operaciones necesarias con los datos
 
                 # Retornar los datos como JSON
                 return HttpResponse(json.dumps(datos), content_type="application/json")
@@ -78,4 +94,5 @@ def login(request):
     else:
         # Si el método no es POST, renderizar el formulario de login
         return redirect(home)
+
 

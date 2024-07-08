@@ -62,17 +62,14 @@ def login(request):
                 datos = response.json()
 
                 if "datos" in datos and isinstance(datos["datos"], list):
-                    # Formato 1: Lista de listas
-                    for item in datos["datos"]:
-                        nombre = item[0]
-                        estado = item[1]
-                        # Procesar cada elemento de la lista de listas
-                        # Aquí puedes realizar las operaciones necesarias con los datos
+                    raw = datos["datos"]
+                    print(f"raw data {raw}")
 
                 elif "datos" in datos and isinstance(datos["datos"], dict):
                     # Formato 2: Diccionario
                     id_usuario = datos["datos"]["id"]
                     nombre = datos["datos"]["nombre"]
+                    print(f"elif data {nombre}")
                     # Procesar el diccionario según tus necesidades
                     # Aquí puedes realizar las operaciones necesarias con los datos
 

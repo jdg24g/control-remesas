@@ -9,7 +9,10 @@ class Cliente(models.Model):
     whatsapp = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.cedula} {self.nombre.upper()} {self.apellido.upper()}"
+        nombre = self.nombre.upper() if self.nombre else ""
+        apellido = self.apellido.upper() if self.apellido else ""
+        return f"{nombre} {apellido}"
+        
 
 class Transaccion(models.Model):
     ENTIDADES = [

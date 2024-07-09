@@ -1,0 +1,33 @@
+{% load static %}
+<form action="/home/login" method="POST">{% csrf_token %}
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5" style="width:30rem;">
+          <div class="card shadow-2-strong" style="border-radius: 1rem">
+            <div class="card-body p-5 text-center">
+              <h3 class="mb-5">Mi Plan</h3>
+      
+              <div data-mdb-input-init class="form-outline mb-4">
+                  <input
+                    type="number"
+                    id="cedula"
+                    name="cedula"
+                    class="form-control form-control-lg"
+                    min="0"
+                    step="1"
+                    required
+                  />
+                  <label class="form-label" for="cedula">Cédula</label>
+                </div>
+              <button
+                data-mdb-button-init
+                data-mdb-ripple-init
+                class="btn btn-primary btn-lg btn-block"
+                type="submit"
+              >
+                Iniciar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+</form>

@@ -83,19 +83,19 @@ class ClienteAdmin(admin.ModelAdmin):
 class TransaccionAdmin(admin.ModelAdmin):
     form = TransaccionForm
     list_display = [
-        "nombre_completo","cliente_ci", "observacion_test", "entidad", "monto", "estado", "caja", "imagen_comprobante_preview", "cliente_whatsapp"
+        "pk","nombre_completo","cliente_ci", "cliente_whatsapp","observacion_test", "monto", "estado", "caja", "imagen_comprobante_preview"
     ]
-    list_filter = ["caja", "estado", MultiSelectEntityFilter, YearListFilter, MonthListFilter]
+    list_filter = ["caja", "estado", YearListFilter, MonthListFilter]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]
     autocomplete_fields = ["cliente"]
-    
+        
     def observacion_test(self, obj):
         if obj.observacion:
             return obj.observacion
         else:
             return "Sin Observación"
     observacion_test.short_description = "Observación"
-
+    
     def nombre_completo(self, obj):
         nombre = obj.cliente.nombre
         apellido = obj.cliente.apellido
@@ -111,7 +111,9 @@ class TransaccionAdmin(admin.ModelAdmin):
             )
         return "Sin Foto"
     imagen_comprobante_preview.short_description = "Comprobante"
-
+    def pk(self, obj):
+        return obj.pk
+    pk.short_description = "ID"
     def cliente_whatsapp(self, obj):
         whatsapp = obj.cliente.whatsapp
         return "+"+whatsapp

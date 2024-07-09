@@ -83,7 +83,7 @@ class ClienteAdmin(admin.ModelAdmin):
 class TransaccionAdmin(admin.ModelAdmin):
     form = TransaccionForm
     list_display = [
-        "pk","nombre_completo","cliente_ci", "cliente_whatsapp","observacion_test", "entidad", "monto", "estado", "caja", "imagen_comprobante_preview"
+        "pk","nombre_completo","cliente_ci", "cliente_whatsapp","observacion_test", "monto", "estado", "caja", "imagen_comprobante_preview"
     ]
     list_filter = ["caja", "estado", YearListFilter, MonthListFilter]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]

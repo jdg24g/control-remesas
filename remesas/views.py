@@ -61,16 +61,15 @@ def login(request):
 
                 # Procesar la respuesta según el formato recibido
                 datos = response.json()
-
                 if "datos" in datos and isinstance(datos["datos"], list):
                     raw = datos["datos"]
-                    print(f"raw data {raw}")
+                    print(f"lista declientes {raw}")
 
                 elif "datos" in datos and isinstance(datos["datos"], dict):
                     # Formato 2: Diccionario
                     id_usuario = datos["datos"]["id"]
                     nombre = datos["datos"]["nombre"]
-                    print(f"elif data {nombre}")
+                    print(f"Diccionario {nombre}")
                     # Procesar el diccionario según tus necesidades
                     # Aquí puedes realizar las operaciones necesarias con los datos
 

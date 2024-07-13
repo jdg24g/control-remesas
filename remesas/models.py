@@ -54,6 +54,7 @@ class Transaccion(models.Model):
         ("Interfisa Banco", "Interfisa Banco"),
         ("Solar Banco S.A.E.", "Solar Banco S.A.E."),
         ("Sudameris Bank S.A.E.C.A.", "Sudameris Bank S.A.E.C.A."),
+        ("TIGO BANK","TIGO BANK"),
         ("TIGO-349","TIGO-349"),
         ("TIGO-722","TIGO-722"),
         ("TIGO-757","TIGO-757"),

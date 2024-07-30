@@ -12,7 +12,8 @@ class MonthListFilter(admin.SimpleListFilter):
     parameter_name = "month"
 
     def lookups(self, request, model_admin):
-        months = [(i, timezone.now().replace(month=i).strftime("%B")) for i in range(1, 13)]
+        current_year = timezone.now().year
+        months = [(i, timezone.datetime(current_year, i, 1).strftime("%B")) for i in range(1, 13)]
         return months
 
     def queryset(self, request, queryset):

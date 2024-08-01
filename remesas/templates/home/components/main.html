@@ -6,9 +6,21 @@
   </p>
   <p class="lead">
     <a
+      target="_blank"
       href="https://wa.me/595986749757"
       class="btn btn-lg btn-light fw-bold border-white bg-white"
+      id="popupLink"
       >Solicita Ya</a
     >
   </p>
+  <script>
+    document.getElementById('popupLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir que el enlace se abra en una nueva pestaña
+        var width = window.screen.width;
+        var height = window.screen.height;
+        window.open(this.href, 'popupWindow', `width=${width},height=${height},scrollbars=yes`);
+    });
+    </script>
+    
+    
 </main>

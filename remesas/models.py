@@ -85,6 +85,7 @@ class Transaccion(models.Model):
     remitente = models.CharField(max_length=50, default="El cliente es el remitente", blank=True, null=True)
     num_comprobante = models.CharField(max_length=50, blank=True, null=True)
     agregado = models.DateTimeField(auto_now_add=True)
+    ultima_modificacion = models.DateTimeField(null=True,blank=True,auto_now=True)
     monto = models.PositiveIntegerField(default=0)
     imagen_comprobante = models.ImageField(upload_to="comprobantes", blank=True, null=True)
     estado = models.CharField(max_length=1, choices=ESTADOS, default="P")

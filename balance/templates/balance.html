@@ -1,0 +1,26 @@
+
+<h1>Balance de Montos</h1>
+
+<h2>MONTO TOTAL: {{ total_montos }}</h2>
+
+<h3>Montos por Caja:</h3>
+<ul>
+{% for item in montos_por_caja %}
+    <li>{{ item.caja }}: {{ item.total }}</li>
+{% endfor %}
+</ul>
+
+
+<h3>Montos por Entidad:</h3>
+<ul>
+{% for item in montos_por_entidad %}
+    <li>{{ item.entidad }}: {{ item.total }}</li>
+{% endfor %}
+</ul>
+
+<h3>Montos por Caja:</h3>
+<ul>
+{% for item in montos_por_caja %}
+    <li>{{ item.caja }}: {{ item.total }}</li>
+{% endfor %}
+</ul>

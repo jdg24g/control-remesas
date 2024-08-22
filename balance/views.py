@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from remesas.models import Transaccion
 from django.db.models import Sum
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 # Función para formatear los números como guaraníes
@@ -9,7 +11,7 @@ def format_number(number):
         return f"{number:,.0f}Gs".replace(",", ".")
     return "0Gs"
 
-
+@login_required(login_url=('admin:login'))
 def balance_montos(request):
     # Calcula el total de todos los montos
     total_montos = Transaccion.objects.aggregate(total=Sum("monto"))["total"] or 0

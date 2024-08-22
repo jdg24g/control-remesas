@@ -40,8 +40,8 @@ class MultiSelectEntityFilter(admin.SimpleListFilter):
     parameter_name = "entidad"
 
     def lookups(self, request, model_admin):
-        entidades = Transaccion.objects.values_list("entidad", flat=True).distinct()
-        return [(entidad, entidad) for entidad in entidades]
+        entidades = sorted(Transaccion.ENTIDADES, key=lambda x: x[1])
+        return entidades
 
     def queryset(self, request, queryset):
         if self.value():
@@ -86,7 +86,7 @@ class TransaccionAdmin(admin.ModelAdmin):
     list_display = [
         "pk","nombre_completo","cliente_ci", "cliente_whatsapp","observacion_test", "monto", "estado", "caja", "imagen_comprobante_preview","ultima_modificacion"
     ]
-    list_filter = ["caja", "estado", YearListFilter, MonthListFilter]
+    list_filter = ["caja", "estado", YearListFilter, MonthListFilter, MultiSelectEntityFilter]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]
     autocomplete_fields = ["cliente"]
         

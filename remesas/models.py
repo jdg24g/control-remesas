@@ -3,10 +3,10 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50, blank=True, null=True)
-    cedula = models.CharField(max_length=20, unique=True)
-    whatsapp = models.CharField(max_length=20, blank=True, null=True)
+    nombre = models.CharField(max_length=50,verbose_name='Nombre')
+    apellido = models.CharField(max_length=50, blank=True, null=True,verbose_name='Apellido')
+    cedula = models.CharField(max_length=20, unique=True,verbose_name='Cédula')
+    whatsapp = models.CharField(max_length=20, blank=True, null=True,verbose_name='Whatsapp')
 
     def __str__(self):
         nombre = self.nombre.upper() if self.nombre else ""
@@ -79,17 +79,17 @@ class Transaccion(models.Model):
         ("E", "Enviado"),
         ("R", "Rechazado"),
     ]
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    caja = models.CharField(choices=CAJAS, max_length=50, blank=True, null=True)
-    entidad = models.CharField(choices=ENTIDADES, max_length=100)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente")
+    caja = models.CharField(choices=CAJAS, max_length=50, blank=True, null=True,verbose_name='Caja')
+    entidad = models.CharField(choices=ENTIDADES, max_length=100,verbose_name='Entidad')
     remitente = models.CharField(max_length=50, default="El cliente es el remitente", blank=True, null=True)
-    num_comprobante = models.CharField(max_length=50, blank=True, null=True)
-    agregado = models.DateTimeField(auto_now_add=True)
-    ultima_modificacion = models.DateTimeField(null=True,blank=True,auto_now=True)
-    monto = models.PositiveIntegerField(default=0)
-    imagen_comprobante = models.ImageField(upload_to="comprobantes", blank=True, null=True)
-    estado = models.CharField(max_length=1, choices=ESTADOS, default="P")
-    observacion = models.TextField(blank=True, null=True)
+    num_comprobante = models.CharField(max_length=50, blank=True, null=True,verbose_name='Número de comprobante')
+    agregado = models.DateTimeField(auto_now_add=True,verbose_name='Fecha de creación')
+    ultima_modificacion = models.DateTimeField(null=True,blank=True,auto_now=True, verbose_name='Última modificación')
+    monto = models.PositiveIntegerField(default=0,verbose_name='Monto')
+    imagen_comprobante = models.ImageField(upload_to="comprobantes", blank=True, null=True, verbose_name='Comprobante')
+    estado = models.CharField(max_length=1, choices=ESTADOS, default="P",verbose_name='Estado')
+    observacion = models.TextField(blank=True, null=True,verbose_name='Observación')
 
     def clean(self):
         if self.num_comprobante:
@@ -101,5 +101,9 @@ class Transaccion(models.Model):
                 print(transaccion_qs)
                 raise ValidationError({"num_comprobante": "El número de comprobante ya existe."})
 
+    class Meta:
+        verbose_name = "Transacción"
+        verbose_name_plural = "Transacciones"
+          
     def __str__(self):
         return f"{self.cliente}"

@@ -56,6 +56,8 @@ class Formulario(models.Model):
     comentarios_adicionales = models.TextField(
         blank=True, null=True, verbose_name="Comentarios Adicionales"
     )
+    cobrado = models.PositiveIntegerField(default=0,verbose_name="Valor Cobrado")
+    
     copia_documento = models.BooleanField(
         verbose_name="El técnico entregó copia del Acuerdo del Usuario al Cliente",
         default=False,

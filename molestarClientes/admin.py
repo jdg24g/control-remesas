@@ -8,6 +8,8 @@ class FormularioAdmin(admin.ModelAdmin):
     list_display = [
         'tecnico_instalador','cliente', 'fecha_incluido'
     ]
+    search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido"]
+    autocomplete_fields = ["cliente"]
 
 @admin.register(Tecnico)
 class TecnicoAdmin(admin.ModelAdmin):

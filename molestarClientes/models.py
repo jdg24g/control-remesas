@@ -41,14 +41,16 @@ class Formulario(models.Model):
     puntualidad = models.IntegerField(
         choices=CALIFICACIONES, verbose_name="Puntualidad"
     )
-    profesionalismo_tecnico = models.IntegerField(
-        choices=CALIFICACIONES, verbose_name="Profesionalismo Técnico"
-    )
     calidad_instalacion = models.IntegerField(
         choices=CALIFICACIONES, verbose_name="Calidad de la Instalación"
     )
     explicacion_servicio = models.IntegerField(
         choices=CALIFICACIONES, verbose_name="Explicación del Servicio"
+    )
+    explicacion_pagos = models.IntegerField(
+        choices=CALIFICACIONES, verbose_name="Explicación de los metodos de pagos y monto abonar",
+        blank=True,
+        null=True,
     )
     recomendaria_servicio = models.IntegerField(
         choices=opciones, verbose_name="¿Recomendaría este servicio a otros clientes?"

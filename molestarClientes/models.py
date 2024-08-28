@@ -27,9 +27,10 @@ class Formulario(models.Model):
     estados = [
         (1, "Pendiente"),
         (2, "Terminado"),
-        (3, "Sin Respuesta")
+        (3, "Sin Respuesta"),
+        (4, "Numero no Corresponde")
     ]
-    opciones = [(1, "Si"), (2, "No"), (3, "No Sabe")]
+    opciones = [(1, "Si"), (2, "No"), (3, "No Sabe"),(4,"Sin Respuesta")]
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha_incluido = models.DateField()
     agregado = models.DateTimeField(auto_now_add=True)
@@ -44,19 +45,28 @@ class Formulario(models.Model):
         verbose_name="Técnico instalador",
     )
     puntualidad = models.IntegerField(
-        choices=CALIFICACIONES, verbose_name="Puntualidad"
+        choices=CALIFICACIONES,
+        verbose_name="Puntualidad",
+        default=6,
     )
     calidad_instalacion = models.IntegerField(
-        choices=CALIFICACIONES, verbose_name="Calidad de la Instalación"
+        choices=CALIFICACIONES,
+        verbose_name="Calidad de la Instalación",
+        default=6,
     )
     explicacion_servicio = models.IntegerField(
-        choices=CALIFICACIONES, verbose_name="Explicación del Servicio"
+        choices=CALIFICACIONES,
+        verbose_name="Explicación del Servicio",
+        default=6,
     )
     explicacion_pagos = models.BooleanField(
-        verbose_name="Explicación de los Pagos", default=False
+        verbose_name="Explicación de los Pagos",
+        default=False
     )
     recomendaria_servicio = models.IntegerField(
-        choices=opciones, verbose_name="¿Recomendaría este servicio a otros clientes?"
+        choices=opciones,
+        verbose_name="¿Recomendaría este servicio a otros clientes?",
+        default=4,
     )
     comentarios_adicionales = models.TextField(
         blank=True, null=True, verbose_name="Comentarios Adicionales"
@@ -75,4 +85,4 @@ class Formulario(models.Model):
         verbose_name_plural = "Formularios"
 
     def __str__(self):
-        return f"Formulario de {self.cliente} - {self.fecha_incluido}"
+        return f"Formulario de {self.cliente} -{self.cliente.cedula} - {self.fecha_incluido}"

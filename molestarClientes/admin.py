@@ -6,10 +6,14 @@ from .models import Formulario,Tecnico
 @admin.register(Formulario)
 class FormularioAdmin(admin.ModelAdmin):
     list_display = [
-        'tecnico_instalador','cliente', 'fecha_incluido'
+        'estado','tecnico_instalador','cliente','get_cliente_whatsapp', 'fecha_incluido'
     ]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido"]
     autocomplete_fields = ["cliente"]
+
+    def get_cliente_whatsapp(self, obj):
+        return obj.cliente.whatsapp
+    get_cliente_whatsapp.short_description = 'WhatsApp del cliente'
 
 @admin.register(Tecnico)
 class TecnicoAdmin(admin.ModelAdmin):

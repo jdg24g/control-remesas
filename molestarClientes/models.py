@@ -22,13 +22,18 @@ class Formulario(models.Model):
         (3, "3 - Neutral"),
         (4, "4 - Satisfecho"),
         (5, "5 - Muy satisfecho"),
+        (6, "6 - Sin Responder"),
+    ]
+    estados = [
+        (1, "Pendiente"),
+        (2, "Terminado"),
+        (3, "Sin Respuesta")
     ]
     opciones = [(1, "Si"), (2, "No"), (3, "No Sabe")]
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fecha_incluido = models.DateField()
     agregado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
-
     # Nuevos campos para el formulario
     tecnico_instalador = models.ForeignKey(
         Tecnico,
@@ -47,10 +52,8 @@ class Formulario(models.Model):
     explicacion_servicio = models.IntegerField(
         choices=CALIFICACIONES, verbose_name="Explicación del Servicio"
     )
-    explicacion_pagos = models.IntegerField(
-        choices=CALIFICACIONES, verbose_name="Explicación de los metodos de pagos y monto abonar",
-        blank=True,
-        null=True,
+    explicacion_pagos = models.BooleanField(
+        verbose_name="Explicación de los Pagos", default=False
     )
     recomendaria_servicio = models.IntegerField(
         choices=opciones, verbose_name="¿Recomendaría este servicio a otros clientes?"
@@ -64,6 +67,8 @@ class Formulario(models.Model):
         verbose_name="El técnico entregó copia del Acuerdo del Usuario al Cliente",
         default=False,
     )
+
+    estado = models.IntegerField(choices=estados, default=1)
 
     class Meta:
         verbose_name = "Formulario"

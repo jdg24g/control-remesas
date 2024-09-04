@@ -26,10 +26,6 @@ def login(request):
     if request.method == "POST":
         cedula = request.POST.get("cedula")
         if cedula:
-            cookies = {
-                "username": "ZGlkaWVy",
-                "password": "aG9sYQ==",
-            }
             headers = {
                 "Accept": "*/*",
                 "Accept-Language": "es-US,es-ES;q=0.9,es-419;q=0.8,es;q=0.7",
@@ -52,9 +48,8 @@ def login(request):
             
             try:
                 response = requests.post(
-                    "https://playnet.com.py/login",
+                    "https://www.playnet.com.py/login_web",
                     headers=headers,
-                    cookies=cookies,
                     data=data,
                 )
                 response.raise_for_status()  # Lanza una excepción si la solicitud no es exitosa

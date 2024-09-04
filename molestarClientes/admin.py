@@ -10,6 +10,7 @@ class FormularioAdmin(admin.ModelAdmin):
     ]
     search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido"]
     autocomplete_fields = ["cliente"]
+    list_filter = ["tecnico_instalador", "estado"]
 
     def get_cliente_whatsapp(self, obj):
         return obj.cliente.whatsapp

@@ -106,4 +106,4 @@ class Transaccion(models.Model):
         verbose_name_plural = "Transacciones"
           
     def __str__(self):
-        return f"{self.cliente}"
+        return f"{self.cliente} - {self.cliente.cedula}"

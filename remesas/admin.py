@@ -87,7 +87,7 @@ class TransaccionAdmin(admin.ModelAdmin):
         "pk","nombre_completo","cliente_ci", "cliente_whatsapp","observacion_test", "monto", "estado", "caja", "imagen_comprobante_preview","ultima_modificacion"
     ]
     list_filter = ["caja", "estado", YearListFilter, MonthListFilter, MultiSelectEntityFilter]
-    search_fields = ["cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]
+    search_fields = ["num_comprobante","cliente__cedula", "cliente__nombre", "cliente__apellido", "entidad"]
     autocomplete_fields = ["cliente"]
         
     def observacion_test(self, obj):
